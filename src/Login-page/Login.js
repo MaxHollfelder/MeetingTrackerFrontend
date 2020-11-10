@@ -1,11 +1,13 @@
+
 import React, { useState } from "react";
-import { useDispatch} from "react-redux"; 
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { useDispatch} from "react-redux";
+import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button } from 'antd';
 import {startLogIn} from '../actions.js';
 import "./style.css";
 
 export default function Login() {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,6 +27,8 @@ export default function Login() {
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
+      <h2>Meeting Tracker: UW- Eau Claire </h2>
+      <h4>Sign In</h4>
         <FormGroup controlId="email" bsSize="large">
           <ControlLabel>Email </ControlLabel>
           <FormControl

@@ -1,13 +1,10 @@
-@media all and (min-width: 480px) {
-    .Login {
-      padding: 60px 0;
-      margin: 30px;
-    }
-  
-    .Login form {
-      margin: 0 auto;
-      font-family: serif;
-      max-width: 320px;
-      text-align: center;
-    }
-  }
+.Login {
+  text-align: center;
+  background-color: #3989EF;
+  display: flex;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  flex-direction: column;
+  align-items: center;
+}
