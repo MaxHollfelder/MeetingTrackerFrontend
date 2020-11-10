@@ -50,12 +50,12 @@ export default function Login() {
         <br>
         </br>
 
-      <label>
+      {/* <label>
         Username/Password:
         <br>
         </br>
         <textarea id="usepass"/>
-      </label>
+      </label> */}
 
       </form>
     </div>

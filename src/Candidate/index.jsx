@@ -90,7 +90,7 @@ class Candidate extends React.Component {
         <div className="candidate-page">
           <p>
             <Button type="primary" onClick={this.onNavCenter}>
-              Back to Meeting Center
+              Logout
             </Button>
           </p>
           <div>
