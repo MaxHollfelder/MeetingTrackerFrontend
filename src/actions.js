@@ -1,9 +1,10 @@
+import authHeader from '../src/auth-header';
 export const Action = Object.freeze({
     Login: "login",
 })
 
+// this is the base spring boot web address that the api's are going to be looking at 
 const host = 'http://localhost:8080';
-//const host = 'http://167.172.158.78:8444';
 function checkForErrors(response){
     if(response.status >= 200 && response.status < 300){
         return response;
@@ -23,7 +24,7 @@ export function startLogIn(email, password){
         body: JSON.stringify({email, password}),
     }
     return dispatch => {
-        fetch(`${host}/auth/login`, options)
+        fetch(`${host}/Login`, options)
         .then(checkForErrors)
         .then(response => response.json())
         .then(data => {
