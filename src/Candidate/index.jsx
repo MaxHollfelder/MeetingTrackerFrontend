@@ -62,7 +62,7 @@ class Candidate extends React.Component {
         if (user[item.index] && user[item.index].length) {
           user[item.index].forEach((el) => {
             const sDetail = window.sessionStorage.getItem(
-                `${item.index}-${el.index}`
+              `${item.index}-${el.index}`
             )
             if (sDetail) {
               const detail = JSON.parse(sDetail)
@@ -87,16 +87,17 @@ class Candidate extends React.Component {
   render() {
     const { data } = this.state
     return (
-        <div className="candidate-page">
-          <p>
-            <Button type="primary" onClick={this.onNavCenter}>
-              Logout
-            </Button>
-          </p>
-          <div>
-            <Table pagination={false} dataSource={data} columns={this.columns} />
-          </div>
+      <div className="candidate-page">
+        <h1>Welcome</h1>
+        <p>
+          <Button type="primary" onClick={this.onNavCenter}>
+            Back to Meeting Center
+          </Button>
+        </p>
+        <div>
+          <Table pagination={false} dataSource={data} columns={this.columns} />
         </div>
+      </div>
     )
   }
 }
