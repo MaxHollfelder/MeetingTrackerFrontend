@@ -1,63 +1,54 @@
-
-import React, { useState } from "react";
-import { useDispatch} from "react-redux";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import { Button } from 'antd';
+import Axios from 'axios';
+import React, {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {startLogIn} from '../actions.js';
-import "./style.css";
+import './style.css';
 
-export default function Login() {
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
-  function login(){
-    dispatch(startLogIn(email, password))
-  }
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
-  function showtext(){
-    document.get('')
-  }
-  //disabled={!validateForm()}
-  return (
-    <div className="Login">
-      <form onSubmit={handleSubmit}>
-      <h2>Meeting Tracker: UW- Eau Claire </h2>
-      <h4>Sign In</h4>
-        <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email </ControlLabel>
-          <FormControl
-            autoFocus
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password </ControlLabel>
-          <FormControl
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
-          />
-        </FormGroup>
-        <Button block bsSize="large"  onClicklogin={login} >Login</Button>
-        <br>
-        </br>
+export default function LoginPage(props){
+    const dispatch = useDispatch();
+    let [email, setEmail] = useState("");
+    let [password, setPassword] = useState("");
+    let errorMessage = useSelector(state => state.errorMessage);
 
-      {/* <label>
-        Username/Password:
-        <br>
-        </br>
-        <textarea id="usepass"/>
-      </label> */}
+    function login(){
+      console.log(email); 
+      //sdispatch(startLogIn(email, password));
+      const config = {
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      data: JSON.stringify({'useremail': email, 'userPassword': password})
+    }
+      
+      Axios.get('http://localhost:8080/Login', config)
+      .then(function (repsonse){
+        console.log(repsonse);
+      })
+    }
+    // function register(){
+    // dispatch(beginRegistering(email, password));
+    // }
 
-      </form>
-    </div>
-  );
+    return(
+            <div id="login-container">
+                <div id="login-header">UWEC Scheduler</div>
+                <div id="login-form-container">
+                    <div id="login-form-header">LOGIN</div>
+                    <div className="login-form-input-grp">
+                        <label className="login-label">Email: </label>
+                        <input className="login-input" type="textbox" value={email} onChange={(e)=>setEmail(e.target.value)}></input>
+                    </div>
+                    <div className="login-form-input-grp">
+                        <label className="login-label">Password: </label>
+                        <input className="login-input" type="password" value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+                    </div>
+                    <button id="login-btn" onClick={login}>Login</button> 
+                    <div className="login-error-msg">
+                        {errorMessage}
+                    </div>
+                </div>
+                
+            </div>
+    )
 }

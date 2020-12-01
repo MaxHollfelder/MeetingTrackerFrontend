@@ -3,6 +3,22 @@ import { withRouter } from 'react-router-dom'
 import { Table, Button } from 'antd'
 import './style.css'
 
+// function login(){
+//   //console.log(email); 
+//   //sdispatch(startLogIn(email, password));
+//   const config = {
+//   headers: {
+//     "Content-Type" : "application/json"
+//   },
+//   data: JSON.stringify({"useremail": 34, "userPassword": 54})
+// }
+  
+//   Axios.get('http://localhost:8080/Login', config)
+//   .then(function (repsonse){
+//     console.log(repsonse);
+//   })
+// }
+
 class Candidate extends React.Component {
   state = {
     data: [],
@@ -90,8 +106,8 @@ class Candidate extends React.Component {
       <div className="candidate-page">
         <h1>Welcome</h1>
         <p>
-          <Button type="primary" onClick={this.onNavCenter}>
-            Back to Meeting Center
+          <Button type="primary" onClick={login}>
+            Logout
           </Button>
         </p>
         <div>
