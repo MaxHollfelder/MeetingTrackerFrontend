@@ -3,21 +3,28 @@ import { withRouter } from 'react-router-dom'
 import { Table, Button } from 'antd'
 import './style.css'
 
-// function login(){
-//   //console.log(email); 
-//   //sdispatch(startLogIn(email, password));
-//   const config = {
-//   headers: {
-//     "Content-Type" : "application/json"
-//   },
-//   data: JSON.stringify({"useremail": 34, "userPassword": 54})
-// }
-  
-//   Axios.get('http://localhost:8080/Login', config)
-//   .then(function (repsonse){
-//     console.log(repsonse);
-//   })
-// }
+// export default function LoginPage(props){
+//   const dispatch = useDispatch();
+//   let [email, setEmail] = useState("");
+//   let [password, setPassword] = useState("");
+//   let errorMessage = useSelector(state => state.errorMessage);
+
+//   function login(){
+//     console.log(email); 
+//     console.log(password);     
+//     Axios.post('http://localhost:8080/', null, {params: {
+//       useremail: email,
+//       userpassword: password
+//     }})
+//     .then(function (repsonse){
+//       console.log(repsonse);
+//     //   if(response = "super_admin"){
+//     //     onNavCenter = () => {
+//     //       this.props.history.push('/schedule')
+//     //     }
+//     //   }
+//     })
+//   }
 
 class Candidate extends React.Component {
   state = {
@@ -68,32 +75,32 @@ class Candidate extends React.Component {
   ]
 
   componentDidMount() {
-    const sPosition = window.sessionStorage.getItem('position')
-    const sUser = window.sessionStorage.getItem('users')
-    if (sPosition && sUser) {
-      const position = JSON.parse(sPosition)
-      const user = JSON.parse(sUser)
-      let arr = []
-      position.forEach((item) => {
-        if (user[item.index] && user[item.index].length) {
-          user[item.index].forEach((el) => {
-            const sDetail = window.sessionStorage.getItem(
-              `${item.index}-${el.index}`
-            )
-            if (sDetail) {
-              const detail = JSON.parse(sDetail)
-              detail.forEach((e) => {
-                e.positionName = item.positionName
-                e.positionId = item.positionId
-                e.department = item.department
-              })
-              arr = arr.concat(detail)
-            }
-          })
-        }
-      })
-      this.setState({ data: arr })
-    }
+    // const sPosition = window.sessionStorage.getItem('position')
+    // const sUser = window.sessionStorage.getItem('users')
+    // if (sPosition && sUser) {
+    //   const position = JSON.parse(sPosition)
+    //   const user = JSON.parse(sUser)
+    //   let arr = []
+    //   position.forEach((item) => {
+    //     if (user[item.index] && user[item.index].length) {
+    //       user[item.index].forEach((el) => {
+    //         const sDetail = window.sessionStorage.getItem(
+    //           `${item.index}-${el.index}`
+    //         )
+    //         if (sDetail) {
+    //           const detail = JSON.parse(sDetail)
+    //           detail.forEach((e) => {
+    //             e.positionName = item.positionName
+    //             e.positionId = item.positionId
+    //             e.department = item.department
+    //           })
+    //           arr = arr.concat(detail)
+    //         }
+    //       })
+    //     }
+    //   })
+    //   this.setState({ data: arr })
+    // }
   }
 
   onNavCenter = () => {
@@ -106,7 +113,7 @@ class Candidate extends React.Component {
       <div className="candidate-page">
         <h1>Welcome</h1>
         <p>
-          <Button type="primary" onClick={login}>
+          <Button type="primary" onClick={this.onNavCenter}>
             Logout
           </Button>
         </p>

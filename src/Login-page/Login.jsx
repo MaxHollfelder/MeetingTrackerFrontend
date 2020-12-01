@@ -1,8 +1,9 @@
 import Axios from 'axios';
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {startLogIn} from '../actions.js';
 import './style.css';
+//import Schedule from './Schedule/index';
+//import Candidate from './Candidate/index';
 
 
 export default function LoginPage(props){
@@ -13,23 +14,20 @@ export default function LoginPage(props){
 
     function login(){
       console.log(email); 
-      //sdispatch(startLogIn(email, password));
-      const config = {
-      headers: {
-        "Content-Type" : "application/json"
-      },
-      data: JSON.stringify({'useremail': email, 'userPassword': password})
-    }
-      
-      Axios.get('http://localhost:8080/Login', config)
+      console.log(password);     
+      Axios.post('http://localhost:8080/', null, {params: {
+        useremail: email,
+        userpassword: password
+      }})
       .then(function (repsonse){
         console.log(repsonse);
+      //   if(response = "super_admin"){
+      //     onNavCenter = () => {
+      //       this.props.history.push('/schedule')
+      //     }
+      //   }
       })
     }
-    // function register(){
-    // dispatch(beginRegistering(email, password));
-    // }
-
     return(
             <div id="login-container">
                 <div id="login-header">UWEC Scheduler</div>
