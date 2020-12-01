@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Row, Col, Input, Button, Table, Popconfirm } from 'antd'
@@ -14,6 +15,7 @@ class Schedule extends React.Component {
 			startTime: '',
 			endTime: '',
 			location: '',
+			meetingID: '',
 		},
 		list: [],
 		isEdit: false,
@@ -46,6 +48,10 @@ class Schedule extends React.Component {
 			dataIndex: 'location',
 			key: 'location',
 		},
+		{	title: 'meetingID', 
+			dataIndex: 'meetingID', 
+			key: 'meetingID',
+		},	
 		{
 			title: 'Option',
 			dataIndex: 'option',
@@ -116,6 +122,14 @@ class Schedule extends React.Component {
 		const { value } = e.target
 		const { info } = this.state
 		switch (type) {
+			case 'candidateName':
+				this.setState({
+					info: {
+						...info,
+						candidateName: value,
+					},
+				})		
+				break
 			case 'participants':
 				this.setState({
 					info: {
@@ -148,12 +162,21 @@ class Schedule extends React.Component {
 					},
 				})
 				break
+			case 'meetingID':
+				this.setState({
+					info: {
+						...info,
+						meetingID: value,
+					},
+				})		
+				break
 			default:
 				break
 		}
 	}
 
 	onAdd = () => {
+		
 		const { info, user, list, isEdit } = this.state
 		if (isEdit) {
 			const { index } = info
@@ -168,6 +191,7 @@ class Schedule extends React.Component {
 					startTime: '',
 					endTime: '',
 					location: '',
+					meetingID: '',
 				},
 				list: newList,
 			})
@@ -184,8 +208,31 @@ class Schedule extends React.Component {
 				startTime: '',
 				endTime: '',
 				location: '',
+				meetingID: '',
 			},
 		})
+		console.log(info.candidateName); 
+		console.log(info.participants); 
+		console.log(info.startTime); 
+		console.log(info.endTime); 
+		console.log(info.location); 
+		console.log(info.meetingID); 
+		Axios.post('http://localhost:8080/Schedule', null, {params: {
+		addCandidateName: info.candidateName,
+        addParticipants: info.participants,
+		addStartTime: info.startTime, 
+		addEndTime: info.endTime, 
+		addLocation: info.location,
+		addMeetingID: info.meetingID,
+      }})
+      .then(function (repsonse){
+        console.log(repsonse);
+      //   if(response = "super_admin"){
+      //     onNavCenter = () => {
+      //       this.props.history.push('/schedule')
+      //     }
+      //   }
+      })
 	}
 
 	onNav = () => {
@@ -202,6 +249,14 @@ class Schedule extends React.Component {
 					<Col span={10}>
 						<div className="form">
 							<h3>A meeting box</h3>
+							<p>
+								<Input
+									addonBefore="Candidate Name"
+									defaultValue={info.candidateName}
+									value={info.candidateName}
+									onChange={(e) => this.onChange(e, 'candidateName')}
+								/>
+							</p>
 							<p>
 								<Input
 									addonBefore="Participants"
@@ -232,6 +287,14 @@ class Schedule extends React.Component {
 									defaultValue={info.location}
 									value={info.location}
 									onChange={(e) => this.onChange(e, 'location')}
+								/>
+							</p>
+							<p>
+								<Input
+									addonBefore="meetingID"
+									defaultValue={info.meetingID}
+									value={info.meetingID}
+									onChange={(e) => this.onChange(e, 'meetingID')}
 								/>
 							</p>
 							<p>

@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import React, {useState} from 'react';
+import { withRouter } from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux';
 import './style.css';
 //import Schedule from './Schedule/index';
@@ -7,7 +8,6 @@ import './style.css';
 
 
 export default function LoginPage(props){
-    const dispatch = useDispatch();
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let errorMessage = useSelector(state => state.errorMessage);
@@ -19,18 +19,24 @@ export default function LoginPage(props){
         useremail: email,
         userpassword: password
       }})
+      
       .then(function (repsonse){
-        console.log(repsonse);
-      //   if(response = "super_admin"){
-      //     onNavCenter = () => {
-      //       this.props.history.push('/schedule')
-      //     }
-      //   }
+        console.log(repsonse) 
+        //routeing(repsonse)
       })
     }
+
+    // function routeing(reasponseData){
+    //   console.log(reasponseData); 
+    //   if(reasponseData = 'super_admin'){
+    //     console.log("routing to super admin");
+    //     this.props.history.push('/Schedule')
+    //   }
+    // }
+
     return(
             <div id="login-container">
-                <div id="login-header">UWEC Scheduler</div>
+                <div id="login-header">UWEC Meeting Tracker</div>
                 <div id="login-form-container">
                     <div id="login-form-header">LOGIN</div>
                     <div className="login-form-input-grp">

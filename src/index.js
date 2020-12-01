@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App.js';
 import {Provider} from 'react-redux'; 
 import storeExport from './store.js';
 import {BrowserRouter} from 'react-router-dom'
@@ -10,7 +9,8 @@ import {PersistGate} from 'redux-persist/integration/react'
  import Login from './Login-page/Login';
  import Schedule from './Schedule/index';
  import Candidate from './Candidate/index';
- import Home from './Home/index'
+ import Home from './Home/index'; 
+ import Participant from './Participant/index'; 
 import 'antd/dist/antd.css';
 
 let storeExportVals = storeExport(); 
@@ -23,8 +23,9 @@ ReactDOM.render(
          <div className="App">
             <Route exact path="/" component={Login} />
             <Route path="/Home" component = {Home}/>
-            <Route path="/candidate" component={Candidate} />
-            <Route path="/schedule" component={Schedule} />
+            <Route path="/Candidate" component={Candidate} />
+            <Route path="/Schedule" component={Schedule} />
+            <Route path= "/Participant" component={Participant}/>
           </div>
         </BrowserRouter>
       </PersistGate>
