@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Table, Button } from 'antd'
 import './style.css'
+import Axios from 'axios';
 
 // export default function LoginPage(props){
 //   const dispatch = useDispatch();
@@ -101,6 +102,12 @@ class Candidate extends React.Component {
     //   })
     //   this.setState({ data: arr })
     // }
+    Axios.post('http://localhost:8080/candidate', null, {params: {
+      useremail: 'hollfema1134@uwec.edu'
+    }})
+    .then(function (repsonse){
+      console.log(repsonse.data);
+    })
   }
 
   onNavCenter = () => {

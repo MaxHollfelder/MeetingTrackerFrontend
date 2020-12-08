@@ -1,23 +1,39 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { withRouter } from 'react-router-dom'
 import { Table, Button } from 'antd'
 import './style.css'
+import Axios from 'axios';
 
 class Candidate extends React.Component {
+	
 	state = {
+		info: {
+			meetingID: '',
+			MeetingType: '',
+			MeetingDate:'',
+			StartTime:'',
+			EndTime: '',
+			Location: '',
+			feedback: '',
+		},
 		data: [],
 	}
 
 	columns = [
 		{
-			title: 'Candidate Name',
-			dataIndex: 'candidateName',
-			key: 'candidateName',
+			title: 'Meeting ID',
+			dataIndex: 'Meeting ID',
+			key: 'MeetingID',
 		},
 		{
-			title: 'Participants',
-			dataIndex: 'participants',
-			key: 'participants',
+			title: 'Meeting Type',
+			dataIndex: 'Meeting Type',
+			key: 'MeetingType',
+		},
+		{
+			title: 'Meeting Date',
+			dataIndex: 'Meeting Date',
+			key: 'MeetingDate',
 		},
 		{
 			title: 'Start Time',
@@ -35,49 +51,31 @@ class Candidate extends React.Component {
 			key: 'location',
 		},
 		{
-			title: 'Position Id',
-			dataIndex: 'positionId',
-			key: 'positionId',
-		},
-		{
-			title: 'Position Name',
-			dataIndex: 'positionName',
-			key: 'positionName',
-		},
-		{
-			title: 'Department',
-			dataIndex: 'department',
-			key: 'department',
+			title: 'feedback',
+			dataIndex: 'feedback',
+			key: 'feedback',
 		},
 	]
 
 	componentDidMount() {
-		const sPosition = window.sessionStorage.getItem('position')
-		const sUser = window.sessionStorage.getItem('users')
-		if (sPosition && sUser) {
-			const position = JSON.parse(sPosition)
-			const user = JSON.parse(sUser)
-			let arr = []
-			position.forEach((item) => {
-				if (user[item.index] && user[item.index].length) {
-					user[item.index].forEach((el) => {
-						const sDetail = window.sessionStorage.getItem(
-							`${item.index}-${el.index}`
-						)
-						if (sDetail) {
-							const detail = JSON.parse(sDetail)
-							detail.forEach((e) => {
-								e.positionName = item.positionName
-								e.positionId = item.positionId
-								e.department = item.department
-							})
-							arr = arr.concat(detail)
-						}
-					})
-				}
-			})
-			this.setState({ data: arr })
-		}
+		const { info, user, list, isEdit } = this.state
+			Axios.post('http://localhost:8080/participant', null, {params: {
+		candidate_id: '9'
+		}})
+		.then((response) =>{
+		console.log(response.data);
+		var responseData = response.data;  
+		console.log(responseData);
+		info.meetingID = responseData[0]; 
+		info.MeetingType = responseData[1]; 
+		info.MeetingDate = responseData[2]; 
+		info.StartTime = responseData[3]; 
+		info.EndTime = responseData[4]; 
+		info.Location = responseData[5]; 
+		info.feedback = responseData[6]; 
+		console.log(info.meetingID); 
+
+		})
 	}
 
 	onNavCenter = () => {
@@ -90,7 +88,7 @@ class Candidate extends React.Component {
 			<div className="candidate-page">
 				<p>
 					<Button type="primary" onClick={this.onNavCenter}>
-						Back to Meeting Center
+						Logout
 					</Button>
 				</p>
 				<div>

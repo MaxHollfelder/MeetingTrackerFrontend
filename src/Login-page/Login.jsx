@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import React, {useState} from 'react';
-import { withRouter } from 'react-router-dom'
+import { useHistory, withRouter } from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux';
 import './style.css';
 //import Schedule from './Schedule/index';
@@ -12,6 +12,8 @@ export default function LoginPage(props){
     let [password, setPassword] = useState("");
     let errorMessage = useSelector(state => state.errorMessage);
 
+    const history = useHistory(); 
+
     function login(){
       console.log(email); 
       console.log(password);     
@@ -21,18 +23,30 @@ export default function LoginPage(props){
       }})
       
       .then(function (repsonse){
-        console.log(repsonse) 
-        //routeing(repsonse)
+        console.log(repsonse.data) 
+        routeing(repsonse.data)
       })
     }
 
-    // function routeing(reasponseData){
-    //   console.log(reasponseData); 
-    //   if(reasponseData = 'super_admin'){
-    //     console.log("routing to super admin");
-    //     this.props.history.push('/Schedule')
-    //   }
-    // }
+    function routeing(responseData){
+      console.log(responseData); 
+      if(responseData = 'super_admin'){
+        console.log("routing to super admin");
+        history.push('/Home')
+      }
+      else if(responseData = 'participant'){
+        history.push('/Participant')
+      }
+      else if(responseData = 'candidate'){
+        history.push('/Candidate')
+      }
+      else if(responseData = 'meeting_creator'){
+        history.push('/Schedule')
+      }
+      else if(responseData = 'admin'){
+        history.push('/Home')
+      }
+    }
 
     return(
             <div id="login-container">

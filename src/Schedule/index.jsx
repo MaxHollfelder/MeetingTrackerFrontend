@@ -10,12 +10,13 @@ class Schedule extends React.Component {
 		id: '',
 		type: 'add',
 		info: {
-			candidateName: '',
+			meetingID: '',
 			participants: '',
+			date:'',
 			startTime: '',
 			endTime: '',
 			location: '',
-			meetingID: '',
+			candidateID:'',			
 		},
 		list: [],
 		isEdit: false,
@@ -23,15 +24,19 @@ class Schedule extends React.Component {
 	}
 
 	columns = [
-		{
-			title: 'Candidate Name',
-			dataIndex: 'candidateName',
-			key: 'candidateName',
+		{	title: 'meetingID', 
+			dataIndex: 'meetingID', 
+			key: 'meetingID',
 		},
 		{
 			title: 'Participants',
 			dataIndex: 'participants',
 			key: 'participants',
+		},
+		{
+			title: 'date',
+			dataIndex: 'date',
+			key: 'date',
 		},
 		{
 			title: 'Start Time',
@@ -48,9 +53,10 @@ class Schedule extends React.Component {
 			dataIndex: 'location',
 			key: 'location',
 		},
-		{	title: 'meetingID', 
-			dataIndex: 'meetingID', 
-			key: 'meetingID',
+		{
+			title: 'CandidateID',
+			dataIndex: 'candidateID',
+			key: 'candidateID',
 		},	
 		{
 			title: 'Option',
@@ -77,7 +83,7 @@ class Schedule extends React.Component {
 							// onCancel={cancel}
 							okText="Yes"
 							cancelText="No"
-						>
+						>	
 							<a href="#">Delete</a>
 						</Popconfirm>
 					</span>
@@ -122,11 +128,11 @@ class Schedule extends React.Component {
 		const { value } = e.target
 		const { info } = this.state
 		switch (type) {
-			case 'candidateName':
+			case 'meetingID':
 				this.setState({
 					info: {
 						...info,
-						candidateName: value,
+						meetingID: value,
 					},
 				})		
 				break
@@ -135,6 +141,14 @@ class Schedule extends React.Component {
 					info: {
 						...info,
 						participants: value,
+					},
+				})
+				break
+			case 'date':
+				this.setState({
+					info: {
+						...info,
+						date: value,
 					},
 				})
 				break
@@ -162,14 +176,14 @@ class Schedule extends React.Component {
 					},
 				})
 				break
-			case 'meetingID':
-				this.setState({
-					info: {
-						...info,
-						meetingID: value,
-					},
-				})		
-				break
+				case 'candidateID':
+					this.setState({
+						info: {
+							...info,
+							candidateID: value,
+						},
+					})		
+					break
 			default:
 				break
 		}
@@ -186,12 +200,13 @@ class Schedule extends React.Component {
 				isEdit: false,
 				text: 'Finish Adding',
 				info: {
-					candidateName: '',
+					meetingID: '',
 					participants: '',
+					date:'',
 					startTime: '',
 					endTime: '',
 					location: '',
-					meetingID: '',
+					candidateID:'',
 				},
 				list: newList,
 			})
@@ -203,35 +218,35 @@ class Schedule extends React.Component {
 		this.setState({
 			list: newArr,
 			info: {
-				candidateName: '',
+				meetingID: '',
 				participants: '',
+				date:'',
 				startTime: '',
 				endTime: '',
 				location: '',
-				meetingID: '',
+				candidateID:'',
 			},
 		})
-		console.log(info.candidateName); 
+		console.log(info.candidateID); 
+		console.log(info.candidate)
 		console.log(info.participants); 
+		console.log(info.date);
 		console.log(info.startTime); 
 		console.log(info.endTime); 
 		console.log(info.location); 
 		console.log(info.meetingID); 
 		Axios.post('http://localhost:8080/Schedule', null, {params: {
-		addCandidateName: info.candidateName,
-        addParticipants: info.participants,
+		addMeetingID: info.meetingID,
+		addParticipants: info.participants,
+		addDate: info.date,
 		addStartTime: info.startTime, 
 		addEndTime: info.endTime, 
 		addLocation: info.location,
-		addMeetingID: info.meetingID,
+		addCandidateName: info.candidateID,
+		
       }})
       .then(function (repsonse){
-        console.log(repsonse);
-      //   if(response = "super_admin"){
-      //     onNavCenter = () => {
-      //       this.props.history.push('/schedule')
-      //     }
-      //   }
+        console.log(repsonse.data);
       })
 	}
 
@@ -251,10 +266,10 @@ class Schedule extends React.Component {
 							<h3>A meeting box</h3>
 							<p>
 								<Input
-									addonBefore="Candidate Name"
-									defaultValue={info.candidateName}
-									value={info.candidateName}
-									onChange={(e) => this.onChange(e, 'candidateName')}
+									addonBefore="meetingID"
+									defaultValue={info.meetingID}
+									value={info.meetingID}
+									onChange={(e) => this.onChange(e, 'meetingID')}
 								/>
 							</p>
 							<p>
@@ -263,6 +278,14 @@ class Schedule extends React.Component {
 									defaultValue={info.participants}
 									value={info.participants}
 									onChange={(e) => this.onChange(e, 'participants')}
+								/>
+							</p>
+							<p>
+								<Input
+									addonBefore="date"
+									defaultValue={info.date}
+									value={info.date}
+									onChange={(e) => this.onChange(e, 'date')}
 								/>
 							</p>
 							<p>
@@ -291,10 +314,10 @@ class Schedule extends React.Component {
 							</p>
 							<p>
 								<Input
-									addonBefore="meetingID"
-									defaultValue={info.meetingID}
-									value={info.meetingID}
-									onChange={(e) => this.onChange(e, 'meetingID')}
+									addonBefore="CandidateID"
+									defaultValue={info.candidateID}
+									value={info.candidateID}
+									onChange={(e) => this.onChange(e, 'candidateID')}
 								/>
 							</p>
 							<p>
