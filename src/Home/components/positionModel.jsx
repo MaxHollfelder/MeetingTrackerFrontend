@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Input } from 'antd'
+import Axios from 'axios';
+
 
 const PositionModel = (props) => {
   const [positionName, setPositionName] = useState('')
@@ -17,6 +19,17 @@ const PositionModel = (props) => {
           department,
         }
         props.onOK('position', data)
+        console.log(positionName)
+        console.log(positionId)
+        console.log(department)
+        Axios.post('http://localhost:8080/AddPosition', null, {params: {
+          addPositionName: positionName,
+          addPositionId: positionId,
+          addDepartment: department,
+      }})
+      .then(function (repsonse){
+        console.log(repsonse.data);
+      })
       }}
       onCancel={() => props.onCancel('position')}
     >

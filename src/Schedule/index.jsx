@@ -16,7 +16,8 @@ class Schedule extends React.Component {
 			startTime: '',
 			endTime: '',
 			location: '',
-			candidateID:'',			
+			candidateID:'',	
+			meetingType:'',		
 		},
 		list: [],
 		isEdit: false,
@@ -57,6 +58,11 @@ class Schedule extends React.Component {
 			title: 'CandidateID',
 			dataIndex: 'candidateID',
 			key: 'candidateID',
+		},
+		{
+			title: 'meetingType',
+			dataIndex: 'meetingType',
+			key: 'meetingType',
 		},	
 		{
 			title: 'Option',
@@ -71,6 +77,7 @@ class Schedule extends React.Component {
 								this.setState({
 									text: 'Finish Editting',
 									info: { ...record },
+									
 									isEdit: true,
 								})
 							}}
@@ -82,8 +89,7 @@ class Schedule extends React.Component {
 							onConfirm={() => this.onConfirm(record)}
 							// onCancel={cancel}
 							okText="Yes"
-							cancelText="No"
-						>	
+							cancelText="No">	
 							<a href="#">Delete</a>
 						</Popconfirm>
 					</span>
@@ -91,6 +97,8 @@ class Schedule extends React.Component {
 			},
 		},
 	]
+
+	
 
 	onConfirm = (data) => {
 		const { index } = data
@@ -184,6 +192,14 @@ class Schedule extends React.Component {
 						},
 					})		
 					break
+				case 'meetingType':
+					this.setState({
+						info: {
+							...info,
+							meetingType: value,
+						},
+					})		
+					break	
 			default:
 				break
 		}
@@ -207,6 +223,7 @@ class Schedule extends React.Component {
 					endTime: '',
 					location: '',
 					candidateID:'',
+					meetingType:'', 
 				},
 				list: newList,
 			})
@@ -225,6 +242,7 @@ class Schedule extends React.Component {
 				endTime: '',
 				location: '',
 				candidateID:'',
+				meetingType:'',
 			},
 		})
 		console.log(info.candidateID); 
@@ -235,6 +253,7 @@ class Schedule extends React.Component {
 		console.log(info.endTime); 
 		console.log(info.location); 
 		console.log(info.meetingID); 
+		console.log(info.meetingType);
 		Axios.post('http://localhost:8080/Schedule', null, {params: {
 		addMeetingID: info.meetingID,
 		addParticipants: info.participants,
@@ -243,6 +262,7 @@ class Schedule extends React.Component {
 		addEndTime: info.endTime, 
 		addLocation: info.location,
 		addCandidateName: info.candidateID,
+		addMeetingType: info.meetingType,
 		
       }})
       .then(function (repsonse){
@@ -321,6 +341,14 @@ class Schedule extends React.Component {
 								/>
 							</p>
 							<p>
+								<Input
+									addonBefore="meetingType"
+									defaultValue={info.meetingType}
+									value={info.meetingType}
+									onChange={(e) => this.onChange(e, 'meetingType')}
+								/>
+							</p>
+							<p>
 								<Button type="primary" onClick={this.onAdd}>
 									{text}
 								</Button>
@@ -331,7 +359,7 @@ class Schedule extends React.Component {
 						<div className="table">
 							<p>
 								<Button type="primary" onClick={this.onNav}>
-									Adding done
+									Logout
 								</Button>
 							</p>
 							<Table

@@ -156,16 +156,6 @@ class Home extends React.Component {
           >
             Add a position
           </Button>
-          <Button
-            type="primary"
-            style={{ marginRight: '16px' }}
-            onClick={this.onNavCandidate}
-          >
-            Go to candidate
-          </Button>
-          <Button type="primary" onClick={this.onNavParticipant}>
-            Go to participant
-          </Button>
         </p>
         {position.length
           ? position.map((item, index) => (

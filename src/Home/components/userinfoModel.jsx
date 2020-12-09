@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, Input, Upload, Button } from 'antd'
+import Axios from 'axios';
+
 
 const UserInfoModel = (props) => {
   const { type, data } = props
@@ -11,6 +13,12 @@ const UserInfoModel = (props) => {
   )
   const [candidatePhone, setCandidatePhone] = useState(
     type ? data.candidatePhone : ''
+  )
+  const [CandidateID, setCandidateID] = useState(
+    type ? data.CandidateID : ''
+  )
+  const [candidatePass, setCandidatePass] = useState(
+    type ? data.candidatePass : ''
   )
   const [fileList, setFileList] = useState([])
   const [fileNameList, setFileNameList] = useState(type ? data.fileList : [])
@@ -44,6 +52,19 @@ const UserInfoModel = (props) => {
           fileList: fileNameList,
         }
         props.onOK(data)
+        console.log(candidateName)
+        console.log(candidateEmail)
+        console.log(candidatePhone)
+        Axios.post('http://localhost:8080/addCandidate', null, {params: {
+          addCandidateName: candidateName,
+          addCandidateEmail: candidateEmail,
+          addCandidatePhone: candidatePhone,
+          addCandidateID: CandidateID,
+          addCandidatePass: candidatePass
+      }})
+      .then(function (repsonse){
+        console.log(repsonse.data);
+      })
       }}
       onCancel={() => props.onCancel()}
     >
@@ -52,6 +73,20 @@ const UserInfoModel = (props) => {
           addonBefore="Candidate Name"
           defaultValue={candidateName}
           onChange={(e) => setCandidateName(e.target.value)}
+        />
+      </p>
+      <p>
+        <Input
+          addonBefore="Candidate ID"
+          defaultValue={CandidateID}
+          onChange={(e) => setCandidateID(e.target.value)}
+        />
+      </p>
+      <p>
+        <Input
+          addonBefore="Candidate Password"
+          defaultValue={candidatePass}
+          onChange={(e) => setCandidatePass(e.target.value)}
         />
       </p>
       <p>

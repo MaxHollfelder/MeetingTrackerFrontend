@@ -58,7 +58,7 @@ class Candidate extends React.Component {
 	]
 
 	componentDidMount() {
-		const { info, user, list, isEdit } = this.state
+		const { info, data } = this.state
 			Axios.post('http://localhost:8080/participant', null, {params: {
 		candidate_id: '9'
 		}})
@@ -74,8 +74,9 @@ class Candidate extends React.Component {
 		info.Location = responseData[5]; 
 		info.feedback = responseData[6]; 
 		console.log(info.meetingID); 
-
+		this.setState({data: responseData})
 		})
+
 	}
 
 	onNavCenter = () => {

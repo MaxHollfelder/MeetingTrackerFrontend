@@ -30,20 +30,20 @@ export default function LoginPage(props){
 
     function routeing(responseData){
       console.log(responseData); 
-      if(responseData = 'super_admin'){
+      if(responseData == 'super_admin'){
         console.log("routing to super admin");
         history.push('/Home')
       }
-      else if(responseData = 'participant'){
+      else if(responseData == 'university_participant'){
         history.push('/Participant')
       }
-      else if(responseData = 'candidate'){
+      else if(responseData == 'candidate'){
         history.push('/Candidate')
       }
-      else if(responseData = 'meeting_creator'){
+      else if(responseData == 'meeting_creator'){
         history.push('/Schedule')
       }
-      else if(responseData = 'admin'){
+      else if(responseData == 'admin'){
         history.push('/Home')
       }
     }
